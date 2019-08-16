@@ -34,8 +34,9 @@ namespace Gates
             }
             logger.LogInformation("Body: {Body}", requestBody);
 
-            int i = _random.Next(0, 2);
-            return (i == 1) ? new OkResult() : new StatusCodeResult(StatusCodes.Status412PreconditionFailed);
+            bool isApproved = (_random.Next(0, 2) == 1);
+            logger.LogInformation("Gate approves: {Approval}.", isApproved);
+            return isApproved ? new OkResult() : new StatusCodeResult(StatusCodes.Status412PreconditionFailed);
         }
     }
 }
